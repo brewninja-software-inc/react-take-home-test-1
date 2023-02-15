@@ -1,4 +1,4 @@
-import { fetchAllContacts, addContact, deleteContact, updateContact } from "./api";
+import { apiFetchAllContacts, apiAddContact, apiDeleteContact, apiUpdateContact } from "./api";
 import { IContact } from "./types";
 
 export type {
@@ -6,8 +6,8 @@ export type {
 }
 
 export {
-    fetchAllContacts,
-    addContact,
-    deleteContact,
-    updateContact
+    apiFetchAllContacts,
+    apiAddContact,
+    apiDeleteContact,
+    apiUpdateContact
 }

@@ -1,5 +1,5 @@
 import {IContact} from "./types";
-import {addContact, deleteContact, fetchAllContacts, updateContact} from "./api";
+import {apiAddContact, apiDeleteContact, apiFetchAllContacts, apiUpdateContact} from "./api";
 import * as storage from './storage';
 
 jest.mock('./storage');
@@ -51,7 +51,7 @@ describe("CRUD success", () => {
 
     it("read all", async () => {
         const expected = getDefaultContactsSorted();
-        const result = await fetchAllContacts();
+        const result = await apiFetchAllContacts();
         expect(sortContactCollection(result)).toStrictEqual(expected);
     });
 
@@ -64,7 +64,7 @@ describe("CRUD success", () => {
         };
         const expected = getDefaultContactsSorted();
         expected.push(newContact);
-        await addContact(newContact);
+        await apiAddContact(newContact);
         expect(storage.saveContacts).toHaveBeenCalledWith(expected);
     });
 
@@ -73,7 +73,7 @@ describe("CRUD success", () => {
         const updatedContact = expected[1];
         updatedContact.email = "new@gmail.com";
         const updateContactParam = JSON.parse(JSON.stringify(updatedContact));
-        await updateContact(updateContactParam);
+        await apiUpdateContact(updateContactParam);
         expect(storage.saveContacts).toHaveBeenCalledWith(expected);
     });
 
@@ -83,7 +83,7 @@ describe("CRUD success", () => {
         (storage.saveContacts as jest.Mock).mockImplementation((data: IContact[]) => {
             expect(containsSameContacts(expected, data)).toBeTruthy();
         });
-        await deleteContact(idToDelete);
+        await apiDeleteContact(idToDelete);
     });
 });
 
@@ -91,7 +91,7 @@ describe("CRUD errors", () => {
 
     it("delete contact with incorrect ID", async () => {
         const idToDelete = "999";
-        expect(() => deleteContact(idToDelete)).toThrow();
+        await expect(() => apiDeleteContact(idToDelete)).rejects.toThrow();
     });
 
     it("update contact with incorrect ID",async () => {
@@ -99,6 +99,23 @@ describe("CRUD errors", () => {
             id: "999",
             name: "changed-name"
         };
-        await expect(async () => await updateContact(updateContactParam)).rejects.toThrow();
+        await expect(async () => await apiUpdateContact(updateContactParam)).rejects.toThrow();
+    });
+
+    it("throw when adding a duplicate", async () => {
+        const contactToAdd: IContact = {
+            id: "999",
+            name: getDefaultContactsSorted()[1].name
+        };
+        await expect(async () => await apiAddContact(contactToAdd)).rejects.toThrow(new Error('A contact with that name already exists'));
+    });
+
+    it("throw when updating a contact with a name that exists on another contact", async () => {
+        const existingContacts = getDefaultContactsSorted();
+        const contactToAdd: IContact = {
+            id: existingContacts[0].id,
+            name: existingContacts[1].name
+        };
+        await expect(async () => await apiAddContact(contactToAdd)).rejects.toThrow(new Error('A contact with that name already exists'));
     });
 });
