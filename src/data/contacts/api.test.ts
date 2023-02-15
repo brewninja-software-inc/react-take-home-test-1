@@ -1,7 +1,6 @@
 import {IContact} from "./types";
 import {addContact, deleteContact, fetchAllContacts, updateContact} from "./api";
 import * as storage from './storage';
-import {saveContacts} from "./storage";
 
 jest.mock('./storage');
 
@@ -42,20 +41,21 @@ function sortContactCollection(collection: IContact[]): IContact[] {
     return collection.sort(compareById);
 }
 
+beforeEach(() => {
+    jest.resetAllMocks();
+    (global.setTimeout as unknown) = jest.fn(cb => cb());
+    (storage.getContacts as jest.Mock).mockReturnValue(getDefaultContactsSorted());
+});
+
 describe("CRUD success", () => {
 
-    beforeEach(() => {
-        jest.resetAllMocks();
-        (storage.getContacts as jest.Mock).mockReturnValue(getDefaultContactsSorted());
-    });
-
-    it("read all", () => {
+    it("read all", async () => {
         const expected = getDefaultContactsSorted();
-        const result = fetchAllContacts();
+        const result = await fetchAllContacts();
         expect(sortContactCollection(result)).toStrictEqual(expected);
     });
 
-    it("add contact", () => {
+    it("add contact", async () => {
         const newContact: IContact = {
             name: "new guy",
             id: "999",
@@ -64,47 +64,41 @@ describe("CRUD success", () => {
         };
         const expected = getDefaultContactsSorted();
         expected.push(newContact);
-        addContact(newContact);
+        await addContact(newContact);
         expect(storage.saveContacts).toHaveBeenCalledWith(expected);
     });
 
-    it("update contact", () => {
+    it("update contact", async () => {
         const expected = getDefaultContactsSorted();
         const updatedContact = expected[1];
         updatedContact.email = "new@gmail.com";
         const updateContactParam = JSON.parse(JSON.stringify(updatedContact));
-        updateContact(updateContactParam);
+        await updateContact(updateContactParam);
         expect(storage.saveContacts).toHaveBeenCalledWith(expected);
     });
 
-    it("delete contact", () => {
+    it("delete contact", async () => {
         const idToDelete = "222";
         const expected = getDefaultContactsSorted().filter(x => x.id !== idToDelete);
         (storage.saveContacts as jest.Mock).mockImplementation((data: IContact[]) => {
             expect(containsSameContacts(expected, data)).toBeTruthy();
         });
-        deleteContact(idToDelete);
+        await deleteContact(idToDelete);
     });
 });
 
 describe("CRUD errors", () => {
 
-    beforeEach(() => {
-        jest.resetAllMocks();
-        (storage.getContacts as jest.Mock).mockReturnValue(getDefaultContactsSorted());
-    });
-
-
-    it("delete contact with incorrect ID", () => {
+    it("delete contact with incorrect ID", async () => {
         const idToDelete = "999";
         expect(() => deleteContact(idToDelete)).toThrow();
     });
 
-    it("update contact with incorrect ID", () => {
+    it("update contact with incorrect ID",async () => {
         const updateContactParam: IContact = {
             id: "999",
             name: "changed-name"
         };
-        expect(() => updateContact(updateContactParam)).toThrow();
+        await expect(async () => await updateContact(updateContactParam)).rejects.toThrow();
     });
 });
