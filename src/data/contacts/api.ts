@@ -1,14 +1,14 @@
 import {IContact} from "./types";
 import {getContacts, saveContacts} from "./storage";
 
-const fakeApiDelay = 1500;
+const FAKE_NETWORK_DELAY = 750;
 
 /**
  * Fetch all existing contacts from the remote storage.
  */
 export function apiFetchAllContacts(): Promise<IContact[]> {
     const result = getContacts();
-    return new Promise(resolve => setTimeout(() => resolve(result), fakeApiDelay));
+    return new Promise(resolve => setTimeout(() => resolve(result), FAKE_NETWORK_DELAY));
 }
 
 /**
@@ -25,7 +25,7 @@ export function apiAddContact(contact: IContact): Promise<void> {
         }
         contacts.push(contact);
         saveContacts(contacts);
-        setTimeout(resolve, fakeApiDelay);
+        setTimeout(resolve, FAKE_NETWORK_DELAY);
     });
 }
 
@@ -49,7 +49,7 @@ export function apiUpdateContact(contact: IContact): Promise<void> {
         }
         contacts[index] = contact;
         saveContacts(contacts);
-        setTimeout(resolve, fakeApiDelay);
+        setTimeout(resolve, FAKE_NETWORK_DELAY);
     });
 }
 
@@ -67,6 +67,6 @@ export function apiDeleteContact(id: string): Promise<void> {
         }
         contacts.splice(index, 1);
         saveContacts(contacts);
-        setTimeout(resolve, fakeApiDelay);
+        setTimeout(resolve, FAKE_NETWORK_DELAY);
     });
 }

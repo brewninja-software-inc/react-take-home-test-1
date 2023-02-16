@@ -19,7 +19,8 @@ You will be creating a single page application for managing contacts, starting f
 - Do not add any package to the project, please work with the supplied NPM modules only.
 - This project was created using CRA, and we would like to stick to that for running and testing the application.
 - Time does not allow for building units tests yielding 100% code coverage; however, you may add unit tests where you feel it helps validate your solution.
-- Manipulation of the collection of contacts should only use `contactsCrud` module which is supplied.
+- Manipulation of the collection of contacts should only use *contacts api module" which can be imported where needed:
+  `import {apiAddContact, apiDeleteContact, apiFetchAllContacts, apiUpdateContact, IContact} from "src/data/contacts";`
 
 ### Requirements
 
