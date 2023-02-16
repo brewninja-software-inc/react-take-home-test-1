@@ -1,6 +1,7 @@
 # Brew Ninja TypeScript/React Developer / Engineer - Take Home Test
 
-This project is for candidates applying to a front-end engineering position at Brew Ninja.  The goal of this test is to assess your knowledge of both TypeScript and React, and give us talking points for the interview (if we proceed to that step).  Please do not spend more than 60-90 minutes on your solution, as we are trying to be respectful of your time.
+This project is for candidates applying to a front-end engineering position at Brew Ninja. The goal of this test is to assess your knowledge of both *TypeScript* and *React*, and give us talking points for the interview (if we proceed to that step).
+There's no time limit, but we suggest a 60-90 minutes timeframe for your solution. We are trying to be respectful of your time.
 
 ## Project Information
 
@@ -19,18 +20,23 @@ You will be creating a single page application for managing contacts, starting f
 - Do not add any package to the project, please work with the supplied NPM modules only.
 - This project was created using CRA, and we would like to stick to that for running and testing the application.
 - Time does not allow for building units tests yielding 100% code coverage; however, you may add unit tests where you feel it helps validate your solution.
-- Manipulation of the collection of contacts should only use *contacts api module" which can be imported where needed:
+- Manipulation of the collection of contacts should only use *contacts api module* which can be imported where needed:
   `import {apiAddContact, apiDeleteContact, apiFetchAllContacts, apiUpdateContact, IContact} from "src/data/contacts";`
 
 ### Requirements
 
-- Default page should display a collection of contacts and the contact's details.
-- Details should be: Name, Phone number, Email, Age.
+- Users should be able to *add* new contacts.
+- Each contact should have an *Universally Unique IDentifier* (provided function)
+- Home page should display a collection of contacts with their details.
+- Details for each contact should be:
+  - Name
+  - Phone number
+  - Email
+  - Age
 - Contacts should be ordered by Name.
-- User should be able to delete a contact.
-- User should be able to add a contact.
-- User should be able to edit a contact.
-- Changes to the collection of contacts should persist.
+- Users should be able to *edit* a contact from the collection
+- Users should be able to *delete* a contact from the collection
+- Changes to the collection of contacts should persist
 
 ### Considerations
 
@@ -84,4 +90,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
