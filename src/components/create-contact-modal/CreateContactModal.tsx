@@ -122,13 +122,11 @@ export const CreateContactModal = ({
 
           <Button className="closeButton" variant="secondary" onClick={ closeCreateContactModal }>Close</Button>
           <Button variant="primary" type="submit">
-            {
-              isLoading &&
-							<Spinner
-								animation="border"
-								size="sm"
-							/>
-            }
+            { isLoading &&
+						<Spinner
+							animation="border"
+							size="sm"
+						/> }
             Save changes
           </Button>
         </Form>

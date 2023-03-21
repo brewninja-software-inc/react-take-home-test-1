@@ -49,13 +49,11 @@ export const DeleteContactConfirmModal = ({
       <Modal.Footer>
         <Button variant="secondary">Cancel</Button>
         <Button variant="primary" onClick={ deleteContact }>
-          {
-            isLoading &&
-						<Spinner
-							animation="border"
-							size="sm"
-						/>
-          }
+          { isLoading &&
+					<Spinner
+						animation="border"
+						size="sm"
+					/> }
           Yes
         </Button>
       </Modal.Footer>
