@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.addContactButton {
+    align-self: flex-end;
+    margin-bottom: 15px;
+}
+
+.loadingSpinner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 20px;
+}

@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { MainPage } from "./components/main-page/MainPage";
+
 function App() {
   return (
     <div className="App container">
-      <h1 className='text-center'>Brew Ninja Test App</h1>
+      <MainPage/>
     </div>
   );
 }
