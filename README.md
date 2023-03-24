@@ -21,7 +21,7 @@ You will be creating a single page application for managing contacts, starting f
 - This project was created using CRA, and we would like to stick to that for running and testing the application.
 - Time does not allow for building units tests yielding 100% code coverage; however, you may add unit tests where you feel it helps validate your solution.
 - Manipulation of the collection of contacts should only use *contacts API module* which can be imported where needed:
-  `import {apiAddContact, apiDeleteContact, apiFetchAllContacts, apiUpdateContact, IContact} from "src/data/contacts";`.  **Do not modify any code in the contacts API module**, as this simulates you not having direct access to change the underlying API implementation.
+  `import {apiAddContact, apiDeleteContact, apiFetchAllContacts, apiUpdateContact, IContact} from "src/data/contacts";`.  **Do not modify any code in the contacts API module** as this simulates you not having direct access to change the underlying API implementation.
 
 ### Requirements
 
