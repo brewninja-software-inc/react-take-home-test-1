@@ -1,11 +1,12 @@
-import React from 'react';
+import {ReactElement} from 'react';
 
-function App() {
-  return (
+const App = (): ReactElement => (
     <div className="App container">
-      <h1 className='text-center'>Brew Ninja Test App</h1>
+        <h1 className='text-center'>Brew Ninja Test App</h1>
+        <p>
+            You application goes here.
+        </p>
     </div>
-  );
-}
+);
 
 export default App;
